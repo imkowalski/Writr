@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+<div class="columns is-vcentered pt-6">
+    <div class="column is-4 is-offset-one-third-desktop is-offset-1-mobile is-10-mobile box">
+        <h1 class="is-size-3">Login</h1> <br>
+        <form action="login" method="post" class="field control">
+            <label for="email">Email</label>
+            <input name="email" class="input" required type="email" placeholder="Email">
+            <label for="password">Password</label>
+            <input name="password" class="input" type="password" placeholder="Password">
+            {% if error %}
+            <p class="help is-danger is-size-5">{{error}}</p>
+            {% endif %}
+            <div><br></div>
+            <input class="button is-primary" type="submit" value="Login">
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

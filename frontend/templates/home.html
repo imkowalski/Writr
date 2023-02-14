@@ -1,0 +1,63 @@
+{% extends "base-user.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div class="columns pt-6">
+    <div class="column is-4 is-offset-one-third-desktop is-offset-1-mobile is-10-mobile box">
+        <form action="create_post" method="post">
+            <div class="field">
+                <div class="control">
+                    <label class="is-size-4" for="posts">What is on your mind?</label>
+                    <textarea name="post_content" class="textarea" style="resize: none;" placeholder="Normal textarea"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="button is-primary" type="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% for post in posts %}
+<div>
+    <div id="posts" class="columns is-vcentered pt-5">'
+        <div class="column is-4 is-offset-one-third-desktop is-offset-1-mobile is-10-mobile box">
+            <div class="field">
+                <div class="control">
+                    <a href="/profile/{{post.user_id}}" class="image is-32x32">
+                        <img style="border: 2px solid rgb(63, 63, 63);border-radius:15%;" src="https://api.dicebear.com/5.x/identicon/png?seed={{post.user_id}}?backgroundColor=fff">
+                    </a>
+                    <a href="/profile/{{post.user_id}}">{{post.username}}</a>
+                <div class="control">
+                    <p class="post-content" data-content="{{post.content}}"></p>
+                </div>
+                <div class="control">
+                    <script>
+                    </script>
+                    <p class="data-display" data-time="{{post.timestamp}}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script>
+    const a = document.getElementsByClassName("data-display")
+    for (let i = 0; i < a.length; i++) {
+        const element = a[i];
+        const time = element.getAttribute("data-time")
+        const date = new Date(time*1000)
+        element.innerHTML = "Posted on: " +date.toLocaleString("en-GB")
+    }
+var converter = new showdown.Converter()
+const b = document.getElementsByClassName("post-content")
+for (let i = 0; i < b.length; i++) {
+    const element = b[i];
+    const content = element.getAttribute("data-content")
+    const html = converter.makeHtml(content)
+    console.log(html, content)
+    element.innerHTML = html
+}
+</script>
+    
+{% endblock %}

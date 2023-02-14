@@ -1,0 +1,35 @@
+#posts h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    color: #000;
+    text-align: left;
+    text-decoration: none;
+    line-height: 1.5em;
+}
+#posts h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    color: #000;
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.5em;
+}
+#posts h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    color: #000;
+    text-align: left;
+    letter-spacing: 0.1em;
+    line-height: 1.5em;
+}
+#posts img {
+    border-radius: 5px;
+}

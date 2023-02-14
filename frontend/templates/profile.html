@@ -1,0 +1,74 @@
+{% extends "base-user.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div>
+    <div class="columns is-vcentered pt-6">
+        <div class="column is-4 is-offset-one-third-desktop is-offset-1-mobile is-10-mobile box">
+            <figure class="image is-64x64">
+                <img style="border: 2px solid rgb(63, 63, 63);border-radius:15%;" src="https://api.dicebear.com/5.x/identicon/png?seed={{user_id}}?backgroundColor=fff">
+            </figure>
+            <div class="columns">
+                <div class="column is-4">
+                    <h1 class="is-size-4">{{user.username}}</h1>
+                    {% if not myprofile %}
+                    {% if user_is_following %}
+                        <form action="{{user_id}}/unfollow" method="post">
+                            <input type="hidden" name="user_id" value="{{user_id}}">
+                            <input class="button is-primary" type="submit" value="Unfollow">
+                        </form>
+                    {% else %}
+                        <form action="{{user_id}}/follow" method="post">
+                            <input type="hidden" name="user_id" value="{{user_id}}">
+                            <input class="button is-primary" type="submit" value="Follow">
+                        </form>
+                    {% endif %}
+                {% endif %}
+                </div>
+                <div class="column is-3 is-offset-2">
+                    <p>followers: {{followers}}</p>
+                </div>
+                <div class="column is-3 ">
+                    <p>following: {{following}}</p>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for post in posts %}
+<div>
+    <div id="posts" class="columns is-vcentered pt-5">
+        <div class="column is-4 is-offset-one-third-desktop is-offset-1-mobile is-10-mobile box">
+            <div class="field">
+                <div class="control">
+                    <p class="post-content" data-content="{{post.content}}"></p>
+                </div>
+                <div class="control">
+                    <script>
+                    </script>
+                    <p class="data-display" data-time="{{post.timestamp}}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script>
+const a = document.getElementsByClassName("data-display")
+for (let i = 0; i < a.length; i++) {
+    const element = a[i];
+    const time = element.getAttribute("data-time")
+    const date = new Date(time*1000)
+    element.innerHTML =  "Posted on: " + date.toLocaleString()
+}
+var converter = new showdown.Converter()
+const b = document.getElementsByClassName("post-content")
+for (let i = 0; i < b.length; i++) {
+    const element = b[i];
+    const content = element.getAttribute("data-content")
+    const html = converter.makeHtml(content)
+    console.log(html, content)
+    element.innerHTML = html
+}
+</script>
+
+{% endblock %}
